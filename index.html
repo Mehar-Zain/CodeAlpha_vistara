@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- =========================================
+         DOCUMENT CONFIGURATION
+    ========================================== -->
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Vistara — Discover visual stories through a curated collection of photography." />
+
+    <meta name="theme-color" content="#080808" />
+
+    <title>Vistara — Discover Visual Stories</title>
+
+
+    <!-- =========================================
+         FONTS
+    ========================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet" />
+
+
+    <!-- =========================================
+         STYLESHEET
+    ========================================== -->
+
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         PAGE LOADER
+    ========================================== -->
+
+    <div class="page-loader" id="pageLoader" aria-hidden="true">
+        <div class="loader-content">
+
+            <span class="loader-logo">
+                VISTARA
+            </span>
+
+            <div class="loader-line">
+                <span></span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <nav class="navbar container" aria-label="Main navigation">
+
+            <!-- Logo -->
+
+            <a href="#home" class="logo" aria-label="Vistara home">
+                VISTARA
+            </a>
+
+
+            <!-- Desktop Navigation -->
+
+            <ul class="nav-links" id="navLinks">
+
+                <li>
+                    <a href="#home" class="nav-link active">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#explore" class="nav-link">
+                        Explore
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#featured" class="nav-link">
+                        Collections
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#about" class="nav-link">
+                        About
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <!-- Navigation Actions -->
+
+            <div class="nav-actions">
+
+                <!-- Search Button -->
+
+                <button class="nav-action search-trigger" id="searchTrigger" type="button" aria-label="Open search">
+
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+
+                        <path d="m20 20-4-4"></path>
+
+                    </svg>
+
+                </button>
+
+
+                <!-- Favorites Button -->
+
+                <button class="nav-action favorites-trigger" id="favoritesTrigger" type="button"
+                    aria-label="Show favorite images">
+
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z">
+                        </path>
+
+                    </svg>
+
+                    <span class="favorites-count" id="favoritesCount">
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- Mobile Menu Button -->
+
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation menu"
+                    aria-expanded="false" aria-controls="navLinks">
+
+                    <span></span>
+                    <span></span>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================================
+         MOBILE NAVIGATION OVERLAY
+    ========================================== -->
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+
+        <div class="mobile-menu-inner">
+
+            <div class="mobile-menu-top">
+
+                <span>
+                    MENU
+                </span>
+
+                <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close navigation menu">
+                    &times;
+                </button>
+
+            </div>
+
+
+            <nav class="mobile-nav" aria-label="Mobile navigation">
+
+                <a href="#home">
+                    <span>01</span>
+                    Home
+                </a>
+
+                <a href="#explore">
+                    <span>02</span>
+                    Explore
+                </a>
+
+                <a href="#featured">
+                    <span>03</span>
+                    Collections
+                </a>
+
+                <a href="#about">
+                    <span>04</span>
+                    About
+                </a>
+
+            </nav>
+
+
+            <div class="mobile-menu-footer">
+
+                <p>
+                    Discover visual stories.
+                </p>
+
+                <span>
+                    VISTARA
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main>
+
+
+        <!-- =======================================
+           HERO SECTION
+      ======================================== -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-background">
+
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2400&q=85"
+                    alt="Mountain landscape surrounded by clouds" class="hero-image" />
+
+            </div>
+
+
+            <div class="hero-overlay"></div>
+
+
+            <div class="hero-content container">
+
+                <div class="hero-eyebrow">
+
+                    <span class="eyebrow-line"></span>
+
+                    <span>
+                        Visual Discovery
+                    </span>
+
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    Discover
+
+                    <span>
+                        Visual Stories.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Explore breathtaking photography,
+                    inspiring places, and unforgettable
+                    moments from around the world.
+
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a href="#explore" class="btn btn-primary">
+
+                        <span>
+                            Explore Gallery
+                        </span>
+
+                        <span class="btn-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a href="#featured" class="btn btn-secondary">
+                        View Collections
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Scroll Indicator -->
+
+            <a href="#featured" class="scroll-indicator" aria-label="Scroll to featured collection">
+
+                <span>
+                    Scroll to explore
+                </span>
+
+                <span class="scroll-line"></span>
+
+            </a>
+
+        </section>
+
+
+        <!-- =======================================
+           FEATURED COLLECTION
+      ======================================== -->
+
+        <section class="featured-section section" id="featured">
+
+            <div class="container">
+
+
+                <!-- Section Header -->
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Curated Collection
+                        </span>
+
+                        <h2 class="section-title">
+                            Stories Worth
+                            <em>Exploring.</em>
+                        </h2>
+
+                    </div>
+
+
+                    <p class="section-description">
+
+                        A handpicked selection of
+                        visual stories that inspire,
+                        surprise, and captivate.
+
+                    </p>
+
+                </div>
+
+
+                <!-- Featured Grid -->
+
+                <div class="featured-grid" id="featuredGrid">
+
+                    <!--
+              Featured images will be
+              dynamically rendered by JavaScript.
+            -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =======================================
+           EXPLORE SECTION
+      ======================================== -->
+
+        <section class="explore-section section" id="explore">
+
+            <div class="container">
+
+
+                <!-- Section Header -->
+
+                <div class="explore-header">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Explore
+                        </span>
+
+                        <h2 class="section-title">
+                            Find Your
+                            <em>Perspective.</em>
+                        </h2>
+
+                    </div>
+
+
+                    <div class="results-info">
+
+                        <span id="resultsCount">
+                            0
+                        </span>
+
+                        <span>
+                            visual stories
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Search -->
+
+                <div class="gallery-search">
+
+                    <div class="search-input-wrapper">
+
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+
+                            <circle cx="11" cy="11" r="7"></circle>
+
+                            <path d="m20 20-4-4"></path>
+
+                        </svg>
+
+
+                        <input type="search" id="searchInput" placeholder="Search visual stories..." autocomplete="off"
+                            aria-label="Search visual stories" />
+
+
+                        <button class="clear-search" id="clearSearch" type="button" aria-label="Clear search">
+                            &times;
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Filter Bar -->
+
+                <div class="filter-bar">
+
+                    <div class="filter-buttons" id="filterButtons" role="tablist"
+                        aria-label="Filter gallery by category">
+
+                        <button class="filter-btn active" data-filter="all" type="button" role="tab"
+                            aria-selected="true">
+                            All
+                        </button>
+
+                        <button class="filter-btn" data-filter="nature" type="button" role="tab" aria-selected="false">
+                            Nature
+                        </button>
+
+                        <button class="filter-btn" data-filter="travel" type="button" role="tab" aria-selected="false">
+                            Travel
+                        </button>
+
+                        <button class="filter-btn" data-filter="architecture" type="button" role="tab"
+                            aria-selected="false">
+                            Architecture
+                        </button>
+
+                        <button class="filter-btn" data-filter="wildlife" type="button" role="tab"
+                            aria-selected="false">
+                            Wildlife
+                        </button>
+
+                        <button class="filter-btn favorites-filter" data-filter="favorites" type="button" role="tab"
+                            aria-selected="false">
+
+                            <span>
+                                ♥
+                            </span>
+
+                            Favorites
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Gallery -->
+
+                <div class="gallery-grid" id="galleryGrid" aria-live="polite">
+
+                    <!--
+              Gallery cards will be
+              dynamically rendered by JavaScript.
+            -->
+
+                </div>
+
+
+                <!-- Empty State -->
+
+                <div class="empty-state" id="emptyState" hidden>
+
+                    <div class="empty-icon">
+
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+
+                            <circle cx="11" cy="11" r="7"></circle>
+
+                            <path d="m20 20-4-4"></path>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h3>
+                        No visual stories found.
+                    </h3>
+
+
+                    <p>
+                        Try searching for something else
+                        or explore another category.
+                    </p>
+
+
+                    <button class="btn btn-outline" id="resetGallery" type="button">
+                        Reset Gallery
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =======================================
+           ABOUT SECTION
+      ======================================== -->
+
+        <section class="about-section section" id="about">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+
+                    <!-- About Heading -->
+
+                    <div class="about-heading">
+
+                        <span class="section-eyebrow">
+                            About Vistara
+                        </span>
+
+                        <h2 class="section-title">
+                            A Space for
+                            <em>Discovery.</em>
+                        </h2>
+
+                    </div>
+
+
+                    <!-- About Content -->
+
+                    <div class="about-content">
+
+                        <p class="about-lead">
+
+                            Vistara is an interactive visual
+                            discovery experience designed to
+                            make exploring photography simple,
+                            immersive, and enjoyable.
+
+                        </p>
+
+
+                        <p>
+
+                            From quiet landscapes to vibrant
+                            cityscapes, every image tells a story.
+                            Explore the collection, save the
+                            moments that inspire you, and discover
+                            something new.
+
+                        </p>
+
+
+                        <!-- Statistics -->
+
+                        <div class="about-stats">
+
+                            <div class="stat-item">
+
+                                <strong id="totalImages">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Visual Stories
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-item">
+
+                                <strong id="totalCategories">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Categories
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-item">
+
+                                <strong>
+                                    100%
+                                </strong>
+
+                                <span>
+                                    Responsive
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         LIGHTBOX
+    ========================================== -->
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle"
+        aria-hidden="true">
+
+        <!-- Lightbox Background -->
+
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+
+        <!-- Close Button -->
+
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">
+            &times;
+        </button>
+
+
+        <!-- Previous Button -->
+
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous image">
+
+            <span>
+                ←
+            </span>
+
+        </button>
+
+
+        <!-- Main Lightbox Content -->
+
+        <div class="lightbox-content">
+
+
+            <!-- Image -->
+
+            <div class="lightbox-image-wrapper">
+
+                <img src="" alt="" class="lightbox-image" id="lightboxImage" />
+
+            </div>
+
+
+            <!-- Image Information -->
+
+            <div class="lightbox-info">
+
+
+                <div class="lightbox-meta">
+
+                    <span class="lightbox-category" id="lightboxCategory">
+                        Category
+                    </span>
+
+                    <span class="meta-separator">
+                        ·
+                    </span>
+
+                    <span id="lightboxPhotographer">
+                        Vistara Collection
+                    </span>
+
+                </div>
+
+
+                <h2 id="lightboxTitle">
+                    Image Title
+                </h2>
+
+
+                <p id="lightboxDescription">
+                    Image description.
+                </p>
+
+
+                <!-- Lightbox Actions -->
+
+                <div class="lightbox-actions">
+
+
+                    <!-- Favorite -->
+
+                    <button class="lightbox-action" id="lightboxFavorite" type="button" aria-label="Add to favorites">
+
+                        <span class="action-icon">
+                            ♡
+                        </span>
+
+                        <span>
+                            Favorite
+                        </span>
+
+                    </button>
+
+
+                    <!-- Share -->
+
+                    <button class="lightbox-action" id="lightboxShare" type="button" aria-label="Share image">
+
+                        <span class="action-icon">
+                            ↗
+                        </span>
+
+                        <span>
+                            Share
+                        </span>
+
+                    </button>
+
+
+                    <!-- Download -->
+
+                    <button class="lightbox-action" id="lightboxDownload" type="button" aria-label="Download image">
+
+                        <span class="action-icon">
+                            ↓
+                        </span>
+
+                        <span>
+                            Download
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Next Button -->
+
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Next image">
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+        <!-- Counter -->
+
+        <div class="lightbox-counter" id="lightboxCounter">
+
+            <span id="currentImageNumber">
+                01
+            </span>
+
+            <span class="counter-divider">
+                /
+            </span>
+
+            <span id="totalImageNumber">
+                12
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         TOAST NOTIFICATION
+    ========================================== -->
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+
+        <span class="toast-icon" id="toastIcon">
+            ✓
+        </span>
+
+        <span class="toast-message" id="toastMessage">
+            Action completed.
+        </span>
+
+    </div>
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================= -->
+    
+    <footer class="site-footer">
+    
+        <div class="container">
+    
+            <!-- Footer Top -->
+            <div class="footer-top">
+    
+    
+                <!-- Brand -->
+                <div class="footer-brand">
+    
+                    <a href="#home" class="footer-logo">
+                        VISTARA
+                    </a>
+    
+                    <p class="footer-tagline">
+                        Discover visual stories.
+                    </p>
+    
+                </div>
+    
+    
+                <!-- Footer Navigation -->
+                <nav class="footer-links" aria-label="Footer navigation">
+    
+    
+                    <!-- Explore -->
+                    <div class="footer-column">
+    
+                        <h3>
+                            Explore
+                        </h3>
+    
+                        <a href="#explore">
+                            Gallery
+                        </a>
+    
+                        <a href="#featured">
+                            Collections
+                        </a>
+    
+                        <a href="#about">
+                            About
+                        </a>
+    
+                    </div>
+    
+    
+                    <!-- Connect -->
+                    <div class="footer-column">
+    
+                        <h3>
+                            Connect
+                        </h3>
+    
+                        <a href="mailto:meharzain.web@gmail.com" aria-label="Send us an email">
+                            Gmail
+                        </a>
+    
+                        <a href="https://www.linkedin.com/in/mehar-zain-dev" aria-label="Visit Us on LinkedIn">
+                            LinkedIn
+                        </a>
+    
+                        <a href="https://github.com/Mehar-Zain/CodeAlpha_vistara" aria-label="Visit Vistara on GitHub">
+                            GitHub
+                        </a>
+    
+                    </div>
+    
+    
+                </nav>
+    
+    
+            </div>
+    
+    
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+    
+                <p>
+                    &copy; 2026 Vistara.
+                    All rights reserved.
+                </p>
+    
+                <p>
+                    Built with HTML, CSS &amp; JavaScript.
+                </p>
+    
+            </div>
+    
+    
+        </div>
+    
+    </footer>
+
+
+
+    <!-- =========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
