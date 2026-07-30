@@ -1,63 +1,103 @@
+const UNSPLASH_API_ORIGIN = "https://api.unsplash.com";
+const MAX_PER_PAGE = 30;
+const DEFAULT_PER_PAGE = 20;
+
 export default async (req) => {
+  if (req.method !== "GET") {
+    return jsonResponse({ error: "Method not allowed." }, 405);
+  }
+
   try {
     const url = new URL(req.url);
 
     const query = url.searchParams.get("query");
-    const page = url.searchParams.get("page") || "1";
-    const perPage = url.searchParams.get("per_page") || "20";
+    const downloadLocation = url.searchParams.get("download_location");
 
     const accessKey = Netlify.env.get("UNSPLASH_ACCESS_KEY");
-
     if (!accessKey) {
-      return new Response(
-        JSON.stringify({
-          error: "Unsplash API key is not configured.",
-        }),
-        {
-          status: 500,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
+      return jsonResponse(
+        { error: "Unsplash API key is not configured." },
+        500,
       );
     }
 
+    // ---------------------------------------------------------
+    // Branch 1: download tracking ping
+    // Unsplash API Guidelines require calling links.download_location
+    // whenever a user downloads a photo. The frontend passes that exact
+    // URL through here so the Access Key never has to live client-side.
+    // ---------------------------------------------------------
+    if (downloadLocation) {
+      let target;
+      try {
+        target = new URL(downloadLocation);
+      } catch {
+        return jsonResponse({ error: "Invalid download_location." }, 400);
+      }
+
+      // SSRF guard: only ever forward requests that actually point at
+      // Unsplash's own API. Never let this become an open proxy.
+      if (target.origin !== UNSPLASH_API_ORIGIN) {
+        return jsonResponse(
+          { error: "download_location must be an Unsplash API URL." },
+          400,
+        );
+      }
+
+      const trackResponse = await fetch(target, {
+        headers: { Authorization: `Client-ID ${accessKey}` },
+      });
+
+      if (!trackResponse.ok) {
+        const details = await trackResponse.text();
+        return jsonResponse(
+          { error: "Unsplash download tracking failed.", details },
+          trackResponse.status,
+        );
+      }
+
+      const trackData = await trackResponse.json();
+      return jsonResponse(trackData, 200);
+    }
+
+    // ---------------------------------------------------------
+    // Branch 2: photo listing / search
+    // ---------------------------------------------------------
+    const page = clampInt(
+      url.searchParams.get("page"),
+      1,
+      1,
+      Number.MAX_SAFE_INTEGER,
+    );
+    const perPage = clampInt(
+      url.searchParams.get("per_page"),
+      DEFAULT_PER_PAGE,
+      1,
+      MAX_PER_PAGE,
+    );
+
     let apiUrl;
-
     if (query) {
-      apiUrl = new URL("https://api.unsplash.com/search/photos");
-
+      apiUrl = new URL("/search/photos", UNSPLASH_API_ORIGIN);
       apiUrl.searchParams.set("query", query);
-      apiUrl.searchParams.set("page", page);
-      apiUrl.searchParams.set("per_page", perPage);
+      apiUrl.searchParams.set("page", String(page));
+      apiUrl.searchParams.set("per_page", String(perPage));
     } else {
-      apiUrl = new URL("https://api.unsplash.com/photos");
-
-      apiUrl.searchParams.set("page", page);
-      apiUrl.searchParams.set("per_page", perPage);
+      apiUrl = new URL("/photos", UNSPLASH_API_ORIGIN);
+      apiUrl.searchParams.set("page", String(page));
+      apiUrl.searchParams.set("per_page", String(perPage));
       apiUrl.searchParams.set("order_by", "popular");
     }
 
     const response = await fetch(apiUrl, {
-      headers: {
-        Authorization: `Client-ID ${accessKey}`,
-      },
+      headers: { Authorization: `Client-ID ${accessKey}` },
     });
 
     if (!response.ok) {
       const errorData = await response.text();
-
-      return new Response(
-        JSON.stringify({
-          error: "Unsplash API request failed.",
-          details: errorData,
-        }),
-        {
-          status: response.status,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
+      return jsonResponse(
+        { error: "Unsplash API request failed.", details: errorData },
+        response.status,
       );
     }
 
@@ -72,17 +112,24 @@ export default async (req) => {
     });
   } catch (error) {
     console.error("Unsplash function error:", error);
-
-    return new Response(
-      JSON.stringify({
-        error: "Something went wrong while fetching images.",
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
+    return jsonResponse(
+      { error: "Something went wrong while fetching images." },
+      500,
     );
   }
 };
+
+function jsonResponse(body, status) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+// Parses an integer query param, falling back to `fallback` and clamping
+// to [min, max] so malformed or out-of-range input can never reach Unsplash.
+function clampInt(rawValue, fallback, min, max) {
+  const parsed = Number.parseInt(rawValue, 10);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}

@@ -1227,30 +1227,20 @@ input:focus-visible {
 
 .gallery-grid {
   display: grid;
-
   grid-template-columns: repeat(3, 1fr);
-
   grid-auto-rows: 260px;
-
   grid-auto-flow: dense;
-
   gap: 16px;
 }
 
 .gallery-card {
   position: relative;
-
   overflow: hidden;
-
   border-radius: var(--radius-md);
-
   background: var(--color-surface-light);
-
   cursor: pointer;
-
   animation: cardReveal 0.5s ease both;
 }
-
 .gallery-card:nth-child(3n + 1) {
   grid-row: span 2;
 }
@@ -1601,6 +1591,8 @@ input:focus-visible {
   gap: 40px;
 
   align-items: center;
+
+  filter: drop-shadow(var(--shadow-large));
 }
 
 .lightbox-image-wrapper {
@@ -2597,6 +2589,10 @@ input:focus-visible {
 /* =========================================================
    IMAGE LOADING EXPERIENCE
 ========================================================= */
+:root {
+  /* ... existing tokens ... */
+  --color-surface-elevated: #141414;
+}
 
 .gallery-card,
 .featured-card {
@@ -2739,40 +2735,19 @@ input:focus-visible {
 }
 
 @media (max-width: 650px) {
-  .search-wrapper {
+  .search-input-wrapper {
     width: 100%;
   }
-
-  .search-input {
+  .search-input-wrapper input {
     width: 100%;
-
     min-height: 50px;
-
-    font-size: 16px;
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
   }
 }
 
 /* =========================================================
    PAGE LOADER
 ========================================================= */
-
-.page-loader {
-  opacity: 1;
-
-  visibility: visible;
-
-  transition:
-    opacity 0.6s ease,
-    visibility 0.6s ease;
-}
-
-.page-loader.hidden {
-  opacity: 0;
-
-  visibility: hidden;
-
-  pointer-events: none;
-}
 
 body:not(.page-ready) {
   overflow: hidden;
@@ -2781,24 +2756,6 @@ body:not(.page-ready) {
 /* =========================================================
    PAGE LOADER
 ========================================================= */
-
-.page-loader {
-  opacity: 1;
-
-  visibility: visible;
-
-  transition:
-    opacity 0.6s ease,
-    visibility 0.6s ease;
-}
-
-.page-loader.hidden {
-  opacity: 0;
-
-  visibility: hidden;
-
-  pointer-events: none;
-}
 
 body:not(.page-ready) {
   overflow: hidden;
@@ -2825,4 +2782,67 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.gallery-loading {
+  min-height: 300px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.loader {
+  width: 52px;
+
+  height: 52px;
+
+  border: 4px solid rgba(255, 255, 255, 0.1);
+
+  border-top: 4px solid #fff;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card-favorite {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  color: var(--color-white);
+  font-size: 1.1rem;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.card-favorite:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transform: scale(1.08);
+}
+
+.card-favorite.active {
+  background: var(--color-white);
+  color: #e11d48; /* filled heart */
 }
